@@ -45,7 +45,7 @@ import markdoc from '@astrojs/markdoc';
 
 export default defineConfig({
     site: 'https://nakamuraalamsutera.com',
-    output: 'hybrid',
+    output: 'static',
     adapter: netlify(),
     integrations: [mdx(), sitemap(), keystatic(), react(), markdoc()],
     fonts: [
