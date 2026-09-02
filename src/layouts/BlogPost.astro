@@ -162,16 +162,22 @@ function formatDate(date: Date) {
 
   /* Styling elemen Markdown/MDX di dalam <slot /> */
 
-  /* Base Image Styling */
-  .article-content :global(img) {
-    max-width: 100%; /* Mencegah gambar overflow, tapi tidak memaksa gambar kecil jadi besar */
-    height: auto;
-    border-radius: var(--radius-md, 12px);
-    margin: 1.5rem auto;
-    display: block;
+  /* Pembungkus utama konten artikel */
+  .article-content {
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
-  /* Alignment & Sizing ala WordPress/Blogspot */
+  /* Base Image Styling (Diubah agar default rata kiri mengikuti Quill Editor) */
+  .article-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md, 12px);
+    margin: 1.5rem 0; /* Mengubah '1.5rem auto' menjadi '1.5rem 0' agar rata kiri */
+    display: inline-block; /* Mengubah 'block' menjadi 'inline-block' */
+  }
+
+  /* Alignment & Sizing (Tetap dipertahankan untuk gambar yang memiliki class khusus) */
   .article-content :global(img.alignleft),
   .article-content :global(img[data-align="left"]) {
     float: left;
@@ -200,11 +206,25 @@ function formatDate(date: Date) {
   }
 
 
+  /* .article-content :global(p) {
+    font-size: 1.025rem;
+    line-height: 1.85;
+    color: var(--text-body, #4a4a4a);
+    margin-bottom: 1.5rem;
+  } */
+
+  /* Diubah untuk mencegah luapan teks */
   .article-content :global(p) {
     font-size: 1.025rem;
     line-height: 1.85;
     color: var(--text-body, #4a4a4a);
     margin-bottom: 1.5rem;
+
+    /* Perbaikan: Menambahkan properti word wrapping */
+    overflow-wrap: break-word; /* Properti modern untuk pembrokan kata */
+    word-wrap: break-word; /* Untuk kompatibilitas browser lama */
+    hyphens: auto; /* Membantu pembrokan kata yang panjang */
+    max-width: 100%; /* Memastikan paragraf tidak melebihi lebar kartu */
   }
 
   .article-content :global(h2) {
